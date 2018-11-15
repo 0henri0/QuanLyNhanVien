@@ -34,13 +34,11 @@ function updateAvatar($request, $url, $avatar)
             $urlimage = substr(time() . mt_rand() . '_' . $img->getClientOriginalName(), -190);
         }
         $img->move($url, $urlimage);
-
         $data['avatar'] = $url .'/'. $urlimage;
         $str = $avatar;
         if (file_exists($str) && $avatar != null) {
             unlink($str);
         }
-
         return $data['avatar'];
     } else {
         return false;
