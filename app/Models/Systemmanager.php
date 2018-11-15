@@ -15,7 +15,7 @@ class systemmanager extends Model
      * @var array
      */
     protected $fillable = [
-        'startTimesheet', 'endTimesheet',
+        'start_timesheet', 'end_timesheet',
     ];
 
 }

@@ -15,11 +15,11 @@ class Task extends Model
      * @var array
      */
     protected $fillable = [
-        'timesheetId', 'content', 'useTime',
+        'timesheet_id', 'content', 'useTime',
     ];
 
     public function timesheet() {
-        return $this->belongsTo('App\Models\Timesheet', 'timesheetId');
+        return $this->belongsTo('App\Models\Timesheet', 'timesheet_id');
     }
 
 }
