@@ -14,8 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/', function () {
-    return view('welcome');
+Route::post('staffs/{id}', 'Admin\StaffController@update');
+Route::group(['prefix' => 'admin', 'as' => 'admin'], function () {
+    Route::resource('staffs', 'Admin\StaffController');
 });
-Route::resource('staffs', 'Admin\StaffController');
