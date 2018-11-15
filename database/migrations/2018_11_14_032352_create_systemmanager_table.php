@@ -15,8 +15,8 @@ class CreateSystemmanagerTable extends Migration
     {
         Schema::create('systemmanager', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('startTimesheet')->default('17:00');
-            $table->string('endTimesheet')->default('19:00');
+            $table->string('start_timesheet')->default('17:00');
+            $table->string('end_timesheet')->default('19:00');
             $table->timestamps();
         });
     }

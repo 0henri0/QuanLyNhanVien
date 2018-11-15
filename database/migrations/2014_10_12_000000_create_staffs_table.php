@@ -18,7 +18,7 @@ class CreateStaffsTable extends Migration
             $table->string('username');
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('leaderId')->unsigned()->nullable();
+            $table->integer('leader_id')->unsigned()->nullable();
             $table->string('avatar')->nullable();
             $table->string('decription')->nullable();
             $table->rememberToken();

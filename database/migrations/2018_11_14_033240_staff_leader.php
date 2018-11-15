@@ -14,7 +14,7 @@ class StaffLeader extends Migration
     public function up()
     {
         Schema::table('staffs', function (Blueprint $table) {
-            $table->foreign('leaderId')->references('id')->on('staffs');
+            $table->foreign('leader_id')->references('id')->on('staffs');
         });
     }
 

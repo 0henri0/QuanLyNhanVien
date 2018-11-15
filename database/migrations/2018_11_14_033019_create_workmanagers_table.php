@@ -16,9 +16,9 @@ class CreateWorkmanagersTable extends Migration
         Schema::create('workmanagers', function (Blueprint $table) {
             $table->increments('id');
             $table->date('date');
-            $table->integer('staffId')->unsigned();
-            $table->integer('numberRegister');
-            $table->integer('numberLate');
+            $table->integer('staff_id')->unsigned();
+            $table->integer('number_register');
+            $table->integer('number_late');
             $table->timestamps();
         });
     }
