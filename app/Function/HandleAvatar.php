@@ -16,8 +16,9 @@ function createAvatar($request, $url)
             $urlimage = substr(time() . mt_rand() . '_' . $img->getClientOriginalName(), -190);
         }
         $img->move($url, $urlimage);
-        $data['avatar'] = $url . $urlimage;
-        return true;
+        $data['avatar'] = $url .'/'. $urlimage;
+        //dd($data['avatar']);
+        return $data['avatar'];
     } else {
         return false;
     }
@@ -33,14 +34,12 @@ function updateAvatar($request, $url, $avatar)
             $urlimage = substr(time() . mt_rand() . '_' . $img->getClientOriginalName(), -190);
         }
         $img->move($url, $urlimage);
-
-        $data['avatar'] = $url . $urlimage;
-        $str = $url . $avatar;
+        $data['avatar'] = $url .'/'. $urlimage;
+        $str = $avatar;
         if (file_exists($str) && $avatar != null) {
             unlink($str);
         }
-
-        return true;
+        return $data['avatar'];
     } else {
         return false;
     }
