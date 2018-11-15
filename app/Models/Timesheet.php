@@ -15,15 +15,15 @@ class Timesheet extends Model
      * @var array
      */
     protected $fillable = [
-        'date', 'staffId', 'difficulty', 'workNextDay', 'approve',
+        'date', 'staff_id', 'difficulty', 'work_next_day', 'approve',
         ];
 
     public function staff() {
-        return $this->belongsTo('App\Models\Staff', 'staffId');
+        return $this->belongsTo('App\Models\Staff', 'staff_id');
     }
 
     public function task() {
-        return $this->hasMany('App\Models\Task', 'timesheetId');
+        return $this->hasMany('App\Models\Task', 'timesheet_id');
     }
 
 

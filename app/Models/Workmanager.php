@@ -15,10 +15,10 @@ class Workmanager extends Model
      * @var array
      */
     protected $fillable = [
-        'date', 'staffId', 'numberRegister', 'numberLate'
+        'date', 'staff_id', 'number_register', 'number_late'
     ];
 
     public function staff() {
-        return $this->belongsTo('App\Staff', 'staffId');
+        return $this->belongsTo('App\Staff', 'staff_id');
     }
 }

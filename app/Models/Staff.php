@@ -16,7 +16,7 @@ class Staff extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','leaderId', 'avatar', 'decription',
+        'usename', 'email', 'password','leader_id', 'avatar', 'decription',
     ];
 
     /**
@@ -29,19 +29,19 @@ class Staff extends Authenticatable
     ];
 
     public function leader() {
-        return $this->hasMany('App\Models\Staff', 'leaderId');
+        return $this->hasMany('App\Models\Staff', 'leader_id');
     }
 
     public function staff() {
-        return $this->belongsTo('App\Models\Staff', 'leaderId','id');
+        return $this->belongsTo('App\Models\Staff', 'leader_id','id');
     }
 
     public function workmanager() {
-        return $this->hasMany('App\Models\workmanager', 'staffId');
+        return $this->hasMany('App\Models\workmanager', 'staff_id');
     }
 
     public function timesheet() {
-        return $this->hasMany('App\Models\Timesheet', 'staffId');
+        return $this->hasMany('App\Models\Timesheet', 'staff_id');
     }
 
 
