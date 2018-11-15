@@ -4,10 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Staff as user;
+use App\Service\Interfaces\StaffInterface as staffs;
+use App\Http\Requests\StaffCreateRequest;
+use App\Http\Requests\StaffUpdate as StaffUpdateRequest;
 
 class StaffController extends Controller
 {
+    protected $staff;
+
+    public function __construct(staffs $staff)
+    {
+        $this->staff = $staff;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,9 +24,8 @@ class StaffController extends Controller
      */
     public function index()
     {
-        $user  = user::get()->load('leader');
-
-        return view('test', ['user'=>$user]);
+        $test = $this->staff->getAll();
+        return view('test', ['test' => $test]);
     }
 
     /**
@@ -27,24 +35,30 @@ class StaffController extends Controller
      */
     public function create()
     {
-        //
+    dd(11);
+        return view('test');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StaffCreateRequest $request)
     {
-        //
+        $data = $request->all();
+        $data['password'] = bcrypt($data['password']);
+        $data['avatar']=createAvatar($request,'upload/avatar');
+        $user = $this->staff->create($data);
+
+        return redirect('admin/staffs')->with('notify', "create $user->username successful!");
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -55,7 +69,7 @@ class StaffController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -66,23 +80,35 @@ class StaffController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StaffUpdateRequest $request, $id)
     {
-        //
+        $user = $this->staff->find($id);
+        $data = $request->all();
+        if (isset($data['email'])) {
+            unset($data['email']);
+        }
+        $data['password'] = bcrypt($data['password']);
+        $data['avatar']=updateAvatar($request,'upload/avatar',$user->avatar);
+        $user = $this->staff->update($id,$data);
+
+        return redirect('admin/staffs')->with('notify', "modify $user->username successful!");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+
+        $user = $this->staff->delete($id);
+
+        return redirect('admin/staffs')->with('notify', "delete successful!");
     }
 }
