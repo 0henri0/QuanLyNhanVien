@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSystemmanagerTable extends Migration
+class CreateSystemmanagersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSystemmanagerTable extends Migration
      */
     public function up()
     {
-        Schema::create('systemmanager', function (Blueprint $table) {
+        Schema::create('systemmanagers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('start_timesheet')->default('17:00');
             $table->string('end_timesheet')->default('19:00');
@@ -28,6 +28,6 @@ class CreateSystemmanagerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('systemmanager');
+        Schema::dropIfExists('systemmanagers');
     }
 }
