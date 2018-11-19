@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::resource('timesheets', 'Staff\TimesheetController');
+Route::resource('tasks', 'Staff\TaskController');
 
 
 Route::post('staffs/{id}', 'Admin\StaffController@update');

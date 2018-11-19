@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Service\Interfaces\SystemInterface;
+use App\Service\Interfaces\TaskInterface;
 use App\Service\Interfaces\TimesheetInterface;
 use App\Service\SystemmanagerService;
+use App\Service\TaskService;
 use App\Service\TimesheetService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
@@ -33,5 +35,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(StaffInterface::class, StaffService::class);
         $this->app->singleton(SystemInterface::class, SystemmanagerService::class);
         $this->app->singleton(TimesheetInterface::class, TimesheetService::class);
+        $this->app->singleton(TaskInterface::class, TaskService::class);
     }
 }
