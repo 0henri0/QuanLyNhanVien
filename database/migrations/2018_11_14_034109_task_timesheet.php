@@ -14,7 +14,7 @@ class TaskTimesheet extends Migration
     public function up()
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->foreign('timesheet_id')->references('id')->on('timesheets');
+            $table->foreign('timesheet_id')->references('id')->on('timesheets')->onDelete('cascade');
         });
     }
 

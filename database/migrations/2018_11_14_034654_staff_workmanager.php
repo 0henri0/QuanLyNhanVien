@@ -14,7 +14,7 @@ class StaffWorkmanager extends Migration
     public function up()
     {
         Schema::table('workmanagers', function (Blueprint $table) {
-            $table->foreign('staff_id')->references('id')->on('staffs');
+            $table->foreign('staff_id')->references('id')->on('staffs')->onDelete('cascade');
         });
     }
 

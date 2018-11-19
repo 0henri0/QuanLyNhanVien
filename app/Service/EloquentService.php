@@ -4,7 +4,7 @@ namespace App\Service;
 
 use App\Service\Interfaces\EloquentInterface;
 
-abstract class Eloquent implements EloquentInterface
+abstract class EloquentService implements EloquentInterface
 {
     /**
      * @var \Illuminate\Database\Eloquent\Model

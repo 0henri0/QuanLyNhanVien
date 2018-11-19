@@ -3,11 +3,13 @@
 namespace App\Providers;
 
 use App\Service\Interfaces\SystemInterface;
-use App\Service\Systemmanager;
+use App\Service\Interfaces\TimesheetInterface;
+use App\Service\SystemmanagerService;
+use App\Service\TimesheetService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Service\Interfaces\StaffInterface;
-use  App\Service\Staff;
+use  App\Service\StaffService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,7 +30,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-         $this->app->singleton(StaffInterface::class, Staff::class);
-        $this->app->singleton(SystemInterface::class, Systemmanager::class);
+        $this->app->singleton(StaffInterface::class, StaffService::class);
+        $this->app->singleton(SystemInterface::class, SystemmanagerService::class);
+        $this->app->singleton(TimesheetInterface::class, TimesheetService::class);
     }
 }

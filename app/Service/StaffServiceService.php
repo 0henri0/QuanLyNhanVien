@@ -3,9 +3,9 @@
 namespace App\Service;
 
 use App\Service\Interfaces\StaffInterface;
-use App\Service\Eloquent;
+use App\Service\EloquentService;
 
- class Staff extends Eloquent implements StaffInterface
+ class StaffService extends EloquentService implements StaffInterface
 {
 
     /**
@@ -19,6 +19,7 @@ use App\Service\Eloquent;
 
     public function getAll()
     {
+        dd($this->_model);
         return $this->_model->get()->load('leader','staff');
     }
 

@@ -15,10 +15,10 @@ class CreateTimesheetsTable extends Migration
     {
         Schema::create('timesheets', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('date');
+            $table->date('datetime');
             $table->integer('staff_id')->unsigned();
-            $table->longtext('difficulty');
-            $table->longtext('work_next_day');
+            $table->longtext('difficulty')->nullable();
+            $table->longtext('work_next_day')->nullable();
             $table->tinyInteger('approve')->default(0);
             $table->timestamps();
         });

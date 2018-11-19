@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Staff;
 
+use App\Http\Requests\TimesheetCreateRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Service\Interfaces\StaffInterface as staffs;
-use App\Http\Requests\StaffCreateRequest;
-use App\Http\Requests\StaffUpdate as StaffUpdateRequest;
+use App\Service\Interfaces\TimesheetInterface as timesheet;
 
-class StaffController extends Controller
+class TimesheetController extends Controller
 {
-    protected $staff;
+    protected $timesheet;
 
-    public function __construct(staffs $staff)
+    public function __construct(timesheet $timesheet)
     {
-        $this->staff = $staff;
+        $this->timesheet = $timesheet;
     }
 
     /**
@@ -24,7 +24,8 @@ class StaffController extends Controller
      */
     public function index()
     {
-        $test = $this->staff->getAll();
+        $test = $this->timesheet->getAll();
+
         return view('test', ['test' => $test]);
     }
 
@@ -35,23 +36,22 @@ class StaffController extends Controller
      */
     public function create()
     {
-        return view('test');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StaffCreateRequest $request)
+    public function store(TimesheetCreateRequest $request)
     {
         $data = $request->all();
-        $data['password'] = bcrypt($data['password']);
-        $data['avatar']=createAvatar($request,'upload/avatar');
-        $user = $this->staff->create($data);
+        $data['date'] = Carbon::parse($data['date'])->format('Y-m-d');
+        $this->timesheet->create($data);
 
-        return redirect('admin/staffs')->with('notify', "create $user->username successful!");
+        return redirect('timesheets')->with('notify', "create timesheet successful!");
     }
 
     /**
@@ -62,7 +62,9 @@ class StaffController extends Controller
      */
     public function show($id)
     {
-        //
+        dd($this->timesheet->find($id));
+
+        return redirect('timesheets')->with('notify', "delete successful!");
     }
 
     /**
@@ -83,18 +85,15 @@ class StaffController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StaffUpdateRequest $request, $id)
+    public function update(TimesheetCreateRequest $request, $id)
     {
-        $user = $this->staff->find($id);
         $data = $request->all();
-        if (isset($data['email'])) {
-            unset($data['email']);
+        if (isset($data['date'])) {
+            unset($data['date']);
         }
-        $data['password'] = bcrypt($data['password']);
-        $data['avatar']=updateAvatar($request,'upload/avatar',$user->avatar);
-        $user = $this->staff->update($id,$data);
+        $this->timesheet->update($id, $data);
 
-        return redirect('admin/staffs')->with('notify', "modify $user->username successful!");
+        return redirect('timesheets')->with('notify', "modify timesheet successful!");
     }
 
     /**
@@ -105,8 +104,8 @@ class StaffController extends Controller
      */
     public function destroy($id)
     {
-        $this->staff->delete($id);
+        $this->timesheet->delete($id);
 
-        return redirect('admin/staffs')->with('notify', "delete successful!");
+        return redirect('timesheets')->with('notify', "delete successful!");
     }
 }
