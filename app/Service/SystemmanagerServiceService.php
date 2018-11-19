@@ -3,9 +3,9 @@
 namespace App\Service;
 
 use App\Service\Interfaces\SystemInterface;
-use App\Service\Eloquent;
+use App\Service\EloquentService;
 
-class Systemmanager extends Eloquent implements SystemInterface
+class SystemmanagerService extends EloquentService implements SystemInterface
 {
 
     /**

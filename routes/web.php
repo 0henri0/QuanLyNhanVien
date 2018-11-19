@@ -14,6 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::resource('timesheets', 'Staff\TimesheetController');
+
+
 Route::post('staffs/{id}', 'Admin\StaffController@update');
 Route::group(['prefix' => 'admin', 'as' => 'admin'], function () {
     Route::resource('staffs', 'Admin\StaffController');
