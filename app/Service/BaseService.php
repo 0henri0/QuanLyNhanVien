@@ -2,39 +2,14 @@
 
 namespace App\Service;
 
-use App\Service\Interfaces\EloquentInterface;
+use App\Service\Interfaces\BaseInterface;
 
-abstract class EloquentService implements EloquentInterface
+abstract class BaseService implements BaseInterface
 {
     /**
      * @var \Illuminate\Database\Eloquent\Model
      */
     protected $_model;
-
-    /**
-     * EloquentRepository constructor.
-     */
-    public function __construct()
-    {
-        $this->setModel();
-    }
-
-    /**
-     * get model
-     * @return string
-     */
-    abstract public function getModel();
-
-    /**
-     * Set model
-     */
-    public function setModel()
-    {
-        $this->_model = app()->make(
-            $this->getModel()
-        );
-    }
-
     /**
      * Get All
      * @return \Illuminate\Database\Eloquent\Collection|static[]

@@ -2,7 +2,7 @@
 
 namespace App\Service\Interfaces;
 
-interface EloquentInterface
+interface BaseInterface
 {
     /**
      * Get all

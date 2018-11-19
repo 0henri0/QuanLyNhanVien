@@ -62,7 +62,7 @@ class StaffController extends Controller
      */
     public function show($id)
     {
-        //
+        dd($this->staff->find($id));
     }
 
     /**

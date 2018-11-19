@@ -2,20 +2,13 @@
 
 namespace App\Service;
 
-use App\Service\EloquentService;
+use App\Models\Task;
+use App\Service\BaseService;
 use App\Service\Interfaces\TaskInterface;
 
-class TaskService extends EloquentService implements TaskInterface
+class TaskService extends BaseService implements TaskInterface
 {
 
-    /**
-     * get model
-     * @return string
-     */
-    public function getModel()
-    {
-        return \App\Models\Task::class;
-    }
 
     public function getAll()
     {
