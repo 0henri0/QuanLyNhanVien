@@ -22,8 +22,8 @@ class SystemmanagerController extends Controller
      */
     public function index()
     {
-        $test = $this->system->find(1);
-
+        $test = $this->system->getInfo();
+        dd($test);
         return view('test', ['test' => $test]);
     }
     /**
@@ -47,7 +47,7 @@ class SystemmanagerController extends Controller
     public function update(Request $request)
     {
         $data = $request->all();
-        $system = $this->system->update(1,$data);
+        $system = $this->system->update($data);
 
         return redirect('admin/system')->with('notify', "config system successful!");
     }
