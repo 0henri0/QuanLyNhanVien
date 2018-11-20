@@ -3,10 +3,9 @@
 namespace App\Service;
 
 use App\Service\Interfaces\StaffInterface;
-use App\Service\BaseService;
 use App\Models\Staff;
 
- class StaffService extends BaseService implements StaffInterface
+ class StaffService implements StaffInterface
 {
      /**
       * Get All

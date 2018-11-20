@@ -21,5 +21,6 @@ Route::get('admin/staffs/{staff}', 'Admin\StaffController@show');
 Route::post('staffs/{id}', 'Admin\StaffController@update');
 Route::group(['prefix' => 'admin', 'as' => 'admin'], function () {
     Route::resource('staffs', 'Admin\StaffController')->except(['show']);
-    Route::resource('system', 'Admin\SystemmanagerController')->only(['index','edit','update']);
+    Route::get('system', 'Admin\SystemmanagerController@index');
+    Route::post('system', 'Admin\SystemmanagerController@update');
 });

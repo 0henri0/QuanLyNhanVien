@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Service\Interfaces\MailInterface;
 use App\Service\Interfaces\SystemInterface;
 use App\Service\Interfaces\TaskInterface;
 use App\Service\Interfaces\TimesheetInterface;
+use App\Service\MailService;
 use App\Service\SystemManagerService;
 use App\Service\TaskService;
 use App\Service\TimesheetService;
@@ -36,5 +38,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(SystemInterface::class, SystemManagerService::class);
         $this->app->singleton(TimesheetInterface::class, TimesheetService::class);
         $this->app->singleton(TaskInterface::class, TaskService::class);
+        $this->app->singleton(MailInterface::class, MailService::class);
     }
 }
