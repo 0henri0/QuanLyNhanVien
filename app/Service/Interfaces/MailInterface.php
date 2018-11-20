@@ -7,18 +7,18 @@ interface MailInterface
     /**
      * send mail start timeshhet
      */
-    public function emailStart($email);
+    public function emailStart();
     /**
      * send mail end timeshhet
      */
-    public function emailEnd($email);
+    public function emailEnd();
     /**
      * send mail timeshhet for leader
      */
-    public function emailSendLeader($email);
+    public function emailSendLeader();
     /**
      * send mail thank
      */
-    public function emailThank($email);
+    public function emailThank();
 
 }

@@ -2,36 +2,49 @@
 
 namespace App\Service;
 
-
+use App\Service\Interfaces\MailInterface;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Staff;
 
 class MailService implements MailInterface
 {
-    public function emailStart($email)
+    public function emailStart()
     {
-        Mail::send('mails.emailStart', array(), function ($message) use ($email) {
-            $message->to($email, 'Visitor')->subject('Visitor Feedback!');
+        $user = Staff::with('timesheet')->get();
+        foreach ($user as $item) {
+            if (($item->timesheet->where('date', Carbon::today()->format('Y-m-d'))->isEmpty())) {
+                Mail::send('mails.emailStart', array(), function ($message) use ($item) {
+                    $message->to($item->email, 'Visitor')->subject('Visitor Feedback!');
+                });
+            }
+        }
+    }
+
+    public function emailEnd()
+    {
+        $user = Staff::with('timesheet')->get();
+        foreach ($user as $item) {
+            if (($item->timesheet->where('date', Carbon::today()->format('Y-m-d'))->isEmpty())) {
+                Mail::send('mails.emailEnd', array(), function ($message) use ($item) {
+                    $message->to($item->email, 'Visitor')->subject('Visitor Feedback!');
+                });
+            }
+        }
+    }
+
+    public function emailSendLeader()
+    {
+        Mail::send('mails.emailSendLeader', array(), function ($message) {
+            $message->to('thainv1612@gmail.com', 'Visitor')->subject('Visitor Feedback!');
         });
     }
 
-    public function emailEnd($email)
+    public function emailThank()
     {
-        Mail::send('mails.emailEnd', array(), function ($message) use ($email) {
-            $message->to($email, 'Visitor')->subject('Visitor Feedback!');
-        });
-    }
-
-    public function emailSendLeader($email)
-    {
-        Mail::send('mails.emailSendLeader', array(), function ($message) use ($email) {
-            $message->to($email, 'Visitor')->subject('Visitor Feedback!');
-        });
-    }
-
-    public function emailThank($email)
-    {
-        Mail::send('mails.emailThank', array(), function ($message) use ($email) {
-            $message->to($email, 'Visitor')->subject('Visitor Feedback!');
+        Mail::send('mails.emailThank', array(), function ($message) {
+            $message->to('thainv1612@gmail.com', 'Visitor')->subject('Visitor Feedback!');
         });
     }
 }
