@@ -1,9 +1,16 @@
+{{--{{dd($test)}}--}}
+<div>hihi</div>
+@if(count($errors) > 0)
+    <div class="alert alert-danger">
+        @foreach($errors->all() as $err) {{$err}}
+        <br> @endforeach()
+    </div>
+@endif
 
-@foreach ($user as $user)
-    <p> @foreach($user->leader as $leader)
-            This is user:
-            {{$leader->username}}
-                    @endforeach
-
-            </p>
-@endforeach
+-----------------------------
+@if(session('notify'))
+    <div class="alert alert-success">
+        {{session('notify')}}
+    </div>
+@endif
+@se

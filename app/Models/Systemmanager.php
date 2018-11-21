@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class systemmanager extends Model
+class Systemmanager extends Model
 {
     use Notifiable;
 
