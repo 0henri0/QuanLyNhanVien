@@ -28,11 +28,11 @@ class Staff extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function leader() {
+    public function staff() {
         return $this->hasMany('App\Models\Staff', 'leader_id');
     }
 
-    public function staff() {
+    public function leader() {
         return $this->belongsTo('App\Models\Staff', 'leader_id','id');
     }
 

@@ -11,16 +11,33 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('home');
+//});
+//Route::get('/admin', function () {
+//    return view('admin.home');
+//});
+//Route::get('/admin/staffs', function () {
+//    return view('admin.staff');
+//});
+
+
 Route::resource('timesheets', 'Staff\TimesheetController');
 Route::resource('tasks', 'Staff\TaskController');
 
-Route::get('admin/staffs/{staff}', 'Admin\StaffController@show');
 Route::post('staffs/{id}', 'Admin\StaffController@update');
+
 Route::group(['prefix' => 'admin', 'as' => 'admin'], function () {
-    Route::resource('staffs', 'Admin\StaffController')->except(['show']);
+    Route::resource('staffs', 'Admin\StaffController');
+    Route::get('staffs/delete/{id}', 'Admin\StaffController@destroy');
     Route::get('system', 'Admin\SystemmanagerController@index');
     Route::post('system', 'Admin\SystemmanagerController@update');
 });
+
+ Auth::routes();
+
+ Route::get('/home', 'HomeController@index')->name('home');
+//
+// Auth::routes();
+//
+// Route::get('/home', 'HomeController@index')->name('home');

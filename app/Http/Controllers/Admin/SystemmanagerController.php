@@ -22,9 +22,9 @@ class SystemmanagerController extends Controller
      */
     public function index()
     {
-        $test = $this->system->getInfo();
-        dd($test);
-        return view('test', ['test' => $test]);
+        $system = $this->system->getInfo();
+
+        return view('admin.system.system', ['system' => $system]);
     }
     /**
      * Show the form for editing the specified resource.

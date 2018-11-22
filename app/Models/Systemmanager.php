@@ -9,6 +9,7 @@ class Systemmanager extends Model
 {
     use Notifiable;
 
+    protected $table = 'systemmanagers';
     /**
      * The attributes that are mass assignable.
      *

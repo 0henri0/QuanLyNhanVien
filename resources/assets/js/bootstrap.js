@@ -9,8 +9,8 @@ window._ = require('lodash');
 
 try {
     window.$ = window.jQuery = require('jquery');
-
-    require('bootstrap-sass');
+    require('admin-lte/bower_components/jquery/dist/jquery.min');
+    // require('bootstrap-sass');
 } catch (e) {}
 
 /**

@@ -10,7 +10,7 @@ class TimesheetService implements TimesheetInterface
 
     public function getAll()
     {
-        return Timesheet::with('task')->get();
+        dd( Timesheet::with('task','staff')->get());
     }
 
     /**
