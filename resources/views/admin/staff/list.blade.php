@@ -1,4 +1,4 @@
-@extends('admin.layout.index') @section('content')
+@extends('admin.layouts.index') @section('content')
     <section class="content-header">
         <h1>
             Data Tables

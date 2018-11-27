@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
     {
         $mailService = app()->make(\App\Service\Interfaces\MailInterface::class);
         $schedule->command('mail:start')->dailyAt($mailService->getStartTime());
- //       $schedule->command('mail:end')->dailyAt(Systemmanager::first()->end_timesheet);
+        $schedule->command('mail:end')->dailyAt($mailService->getEndTime());
     }
 
     /**

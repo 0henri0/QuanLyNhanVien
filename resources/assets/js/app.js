@@ -22,12 +22,17 @@ require('admin-lte/bower_components/fastclick/lib/fastclick');
 require('admin-lte/dist/js/adminlte.min');
 
 require('admin-lte/dist/js/demo');
-// require('admin-lte/bower_components/bootstrap-daterangepicker/daterangepicker');
-//
-// require('admin-lte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min');
-// require('admin-lte/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min');
-// require('admin-lte/plugins/iCheck/icheck.min');
-// require('admin-lte/plugins/timepicker/bootstrap-timepicker.min');
+
+require('admin-lte/bower_components/fullcalendar/dist/fullcalendar.min');
+
+require('admin-lte/bower_components/jquery-ui/jquery-ui.min');
+
+require('admin-lte/bower_components/moment/moment');
+
+require('admin-lte/bower_components/ckeditor/ckeditor');
+
+
+
 // //
 // window.Vue = require('vue');
 //

@@ -8,7 +8,7 @@ interface TaskInterface
      * Get all
      * @return mixed
      */
-    public function getAll();
+    public function getAll($timeshetId);
 
     /**
      * Get one

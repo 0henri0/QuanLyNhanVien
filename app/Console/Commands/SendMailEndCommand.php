@@ -4,10 +4,11 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Service\Interfaces\MailInterface as email;
+use App\Service\WorkManagerService as workManager;
 
 class SendMailEndCommand extends Command
 {
-    protected $email;
+    protected $email, $workManager;
     /**
      * The name and signature of the console command.
      *
@@ -27,11 +28,11 @@ class SendMailEndCommand extends Command
      *
      * @return void
      */
-    public function __construct(email $email)
+    public function __construct(email $email, workManager $workManager)
     {
         parent::__construct();
         $this->email = $email;
-
+        $this->workManager = $workManager;
     }
 
     /**
@@ -42,5 +43,6 @@ class SendMailEndCommand extends Command
     public function handle()
     {
         $this->email->emailEnd();
+        $this->workManager->getAll();
     }
 }

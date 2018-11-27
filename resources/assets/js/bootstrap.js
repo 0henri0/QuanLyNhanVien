@@ -1,4 +1,3 @@
-
 window._ = require('lodash');
 
 /**
@@ -9,9 +8,12 @@ window._ = require('lodash');
 
 try {
     window.$ = window.jQuery = require('jquery');
-    require('admin-lte/bower_components/jquery/dist/jquery.min');
+
     // require('bootstrap-sass');
+    // AdminLTE code here.
+    require('admin-lte');
 } catch (e) {}
+
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

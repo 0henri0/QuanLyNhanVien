@@ -27,8 +27,6 @@ class StaffController extends Controller
     {
         $staff = $this->staff->getAll();
 
-        dd($staff);
-
         return view('admin.staff.list', ['staff' => $staff]);
     }
 

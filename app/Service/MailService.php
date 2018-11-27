@@ -26,9 +26,19 @@ class MailService implements MailInterface
     {
         try {
 
+            return \App\Models\Systemmanager::first()->start_timesheet;
+        } catch (\Exception $e) {
+            return '17:00';
+        }
+    }
+
+    public function getEndTime()
+    {
+        try {
+
             return \App\Models\Systemmanager::first()->end_timesheet;
         } catch (\Exception $e) {
-            return '0:00';
+            return '19:00';
         }
     }
 

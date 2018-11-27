@@ -26,8 +26,8 @@
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
-@include('admin.layout.header')
-@include('admin.layout.left-menu')
+@include('admin.layouts.header')
+@include('admin.layouts.left-menu')
 <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         @if(count($errors) > 0)
@@ -43,10 +43,10 @@
         @yield('content')
     </div>
     <!-- /.content-wrapper -->
-@include('admin.layout.footer')
+@include('admin.layouts.footer')
 
 <!-- Control Sidebar -->
-    @include('admin.layout.control-sidebar')
+    @include('admin.layouts.control-sidebar')
 </div>
 <!-- ./wrapper -->
 

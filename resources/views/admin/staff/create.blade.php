@@ -1,4 +1,4 @@
-@extends('admin.layout.index')
+@extends('admin.layouts.index')
 @section('content')
     <div class="box box-info">
         <div class="box-header with-border">
@@ -7,6 +7,7 @@
         <!-- /.box-header -->
         <!-- form start -->
         <form class="form-horizontal" action="{{url('admin/staffs')}}" method="post">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="box-body">
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Username</label>

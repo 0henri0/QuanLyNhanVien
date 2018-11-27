@@ -2,15 +2,20 @@
 
 namespace App\Service;
 
-use App\Models\Timesheet;
+use App\Models\Timesheet;;
 use App\Service\Interfaces\TimesheetInterface;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class TimesheetService implements TimesheetInterface
 {
 
     public function getAll()
     {
-        dd( Timesheet::with('task','staff')->get());
+        $timesheet = Auth::user()->load('timesheet');
+        $mouth = Carbon::now()->startOfMonth()->format('Y-m-d');
+
+        return $timesheet->timesheet->where('date', '>=', $mouth)->sortByDesc('date');
     }
 
     /**
@@ -32,7 +37,13 @@ class TimesheetService implements TimesheetInterface
      */
     public function create(array $attributes)
     {
+        //dd(Carbon::now()->format('m-Y'));
+        $check = Carbon::parse($attributes['date'])->format('m-Y') == Carbon::now()->format('m-Y');
 
+        if (Timesheet::where('staff_id', Auth::id())->where('date', $attributes['date'])->first() || !$check) {
+
+            return false;
+        }
         return Timesheet::create($attributes);
     }
 

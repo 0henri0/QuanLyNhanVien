@@ -1,9 +1,9 @@
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
-//// Variables
-//@import "variables";
-//// Bootstrap
-//@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+// Variables
+@import "variables";
+// Bootstrap
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
 @import "~admin-lte/dist/css/AdminLTE.css";
 @import "~admin-lte/dist/css/skins/_all-skins.css";
@@ -17,3 +17,9 @@
 @import "~admin-lte/bower_components/bootstrap-daterangepicker/daterangepicker.css";
 @import "~admin-lte/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css";
 @import "~admin-lte/bower_components/select2/dist/css/select2.min.css";
+
+@import "~admin-lte/bower_components/fullcalendar/dist/fullcalendar.min.css";
+@import "~admin-lte/bower_components/fullcalendar/dist/fullcalendar.print.min.css";
+
+
+

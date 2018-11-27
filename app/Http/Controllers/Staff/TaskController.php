@@ -22,22 +22,17 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($timesheet)
     {
-        $test = $this->task->getAll();
-        //dd($test);
+        $task = $this->task->getAll($timesheet);
+        if (count($task)) {
 
-        return view('test', ['test' => $test]);
-    }
+            return view('staff.task.list', compact('task'));
+        } else {
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+            return redirect('leader')->with('notify', "chưa có task");
+        }
+
     }
 
     /**
@@ -46,13 +41,13 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TaskRequest $request)
+    public function store(TaskRequest $request, $timesheetId)
     {
         $data = $request->all();
-
+        $data['timesheet_id'] = $timesheetId;
         $this->task->create($data);
 
-        return redirect('tasks')->with('notify', "create task successful!");
+        return redirect("timesheets/$timesheetId/tasks")->with('notify', "create task successful!");
     }
 
     /**
@@ -86,12 +81,12 @@ class TaskController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TaskRequest $request, $id)
+    public function update(TaskRequest $request, $taskId)
     {
         $data = $request->all();
-        $this->task->update($id, $data);
+        $this->task->update($taskId, $data);
 
-        return redirect('tasks')->with('notify', "modify task successful!");
+        return back()->with('notify', "modify task successful!");
     }
 
     /**

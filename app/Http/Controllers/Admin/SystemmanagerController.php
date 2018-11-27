@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Service\Interfaces\SystemInterface as system;
+use Illuminate\Support\Facades\Auth;
 
 class SystemmanagerController extends Controller
 {
@@ -26,10 +27,11 @@ class SystemmanagerController extends Controller
 
         return view('admin.system.system', ['system' => $system]);
     }
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -40,8 +42,8 @@ class SystemmanagerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)

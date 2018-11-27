@@ -3,15 +3,16 @@
 namespace App\Service;
 
 use App\Models\Task;
+use App\Models\Timesheet;
 use App\Service\Interfaces\TaskInterface;
 
 class TaskService implements TaskInterface
 {
 
 
-    public function getAll()
+    public function getAll($timeshetId)
     {
-        return Task::with('timesheet')->get();
+        return Timesheet::find($timeshetId)->load('task')->task;
     }
     /**
      * Get one

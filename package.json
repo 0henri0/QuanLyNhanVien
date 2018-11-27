@@ -24,5 +24,7 @@
         "lodash": "^4.17.4",
         "vue": "^2.5.7"
     },
-    "dependencies": {}
+    "dependencies": {
+        "bootstrap3-wysihtml5-npm": "^0.3.3-npm.12"
+    }
 }

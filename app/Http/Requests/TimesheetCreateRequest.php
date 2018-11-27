@@ -26,10 +26,8 @@ class TimesheetCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => 'required|unique:timesheets',
             'difficulty' => 'required',
             'work_next_day' => 'required',
-            'staff_id'=>'required',
         ];
     }
 }
