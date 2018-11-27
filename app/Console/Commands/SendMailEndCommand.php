@@ -43,6 +43,6 @@ class SendMailEndCommand extends Command
     public function handle()
     {
         $this->email->emailEnd();
-        $this->workManager->getAll();
+        $this->workManager->updateLate();
     }
 }

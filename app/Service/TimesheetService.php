@@ -37,10 +37,9 @@ class TimesheetService implements TimesheetInterface
      */
     public function create(array $attributes)
     {
-        //dd(Carbon::now()->format('m-Y'));
-        $check = Carbon::parse($attributes['date'])->format('m-Y') == Carbon::now()->format('m-Y');
-
-        if (Timesheet::where('staff_id', Auth::id())->where('date', $attributes['date'])->first() || !$check) {
+        $check = Carbon::parse($attributes['date'])->format('d-m-Y') > Carbon::now()->format('d-m-Y');
+        dd($check);
+        if (Timesheet::where('staff_id', Auth::user()->id)->where('date', $attributes['date'])->first() || !$check) {
 
             return false;
         }
@@ -56,7 +55,9 @@ class TimesheetService implements TimesheetInterface
     public function update($id, array $attributes)
     {
         $result = $this->find($id);
-        if ($result) {
+        $check2 = Carbon::parse($attributes['date'])->format('m-Y') == Carbon::now()->format('m-Y');
+        $check = Timesheet::where('staff_id', Auth::id())->where('date', $attributes['date'])->first();
+        if ($result->date == $attributes['date'] || !$check||!$check2) {
             $result->update($attributes);
             return $result;
         }

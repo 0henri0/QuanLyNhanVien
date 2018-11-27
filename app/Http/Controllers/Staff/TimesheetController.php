@@ -32,8 +32,8 @@ class TimesheetController extends Controller
     public function index()
     {
         $timesheet = $this->timesheet->getAll();
-        // dd($timesheet);
-        return view('staff.timesheet.list', ['timesheet' => $timesheet]);
+
+        return view('staff.timesheet.list', compact('timesheet'));
     }
 
     /**
@@ -56,8 +56,6 @@ class TimesheetController extends Controller
     {
         $data = $request->all();
         $data['staff_id'] = Auth::user()->id;
-        $data['date'] = Carbon::parse($data['date'])->format('Y-m-d');
-
         if (!$this->timesheet->create($data)) {
 
             return redirect('timesheets')->with('notify', "timesheet exist or timesheet not in mouth now!");
@@ -93,14 +91,16 @@ class TimesheetController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-        if (isset($data['date'])) {
-            unset($data['date']);
-        }
         $data['approve'] = 0;
-        $this->timesheet->update($id, $data);
-        dispatch(new SendLeaderMail($this->mail));
+        if ($this->timesheet->update($id, $data)) {
+            dispatch(new SendLeaderMail($this->mail));
 
-        return redirect('timesheets')->with('notify', "modify timesheet successful!");
+            return redirect('timesheets')->with('notify', "modify timesheet successful!");
+        } else {
+
+            return redirect('timesheets')->with('error', "update not successful!");
+        }
+
     }
 
 }
