@@ -26,7 +26,7 @@ class StaffLeader extends Migration
     public function down()
     {
         Schema::table('staffs', function (Blueprint $table) {
-            $table->dropForeign('staffs_leaderId_foreign');
+            $table->dropForeign('staffs_leader_id_foreign');
         });
 
     }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Service\Interfaces\StaffInterface as staffs;
 use App\Http\Requests\StaffCreateRequest;
 use App\Http\Requests\StaffUpdate as StaffUpdateRequest;
+use Illuminate\Support\Facades\Redirect;
 
 class StaffController extends Controller
 {
@@ -24,8 +25,9 @@ class StaffController extends Controller
      */
     public function index()
     {
-        $test = $this->staff->getAll();
-        return view('test', ['test' => $test]);
+        $staff = $this->staff->getAll();
+
+        return view('admin.staff.list', ['staff' => $staff]);
     }
 
     /**
@@ -35,7 +37,7 @@ class StaffController extends Controller
      */
     public function create()
     {
-        return view('test');
+        return view('admin.staff.create');
     }
 
     /**
@@ -48,7 +50,7 @@ class StaffController extends Controller
     {
         $data = $request->all();
         $data['password'] = bcrypt($data['password']);
-        $data['avatar']=createAvatar($request,'upload/avatar');
+        $data['avatar'] = createAvatar($request, 'upload/avatar');
         $user = $this->staff->create($data);
 
         return redirect('admin/staffs')->with('notify', "create $user->username successful!");
@@ -62,7 +64,7 @@ class StaffController extends Controller
      */
     public function show($id)
     {
-        dd($this->staff->find($id));
+
     }
 
     /**
@@ -73,7 +75,13 @@ class StaffController extends Controller
      */
     public function edit($id)
     {
-        //
+        $staff = $this->staff->find($id);
+
+        if (!$staff) {
+            return redirect()->back()->withErrors(['staff do not exist']);
+        }
+
+        return view('admin.staff.edit', compact('staff'));
     }
 
     /**
@@ -87,12 +95,12 @@ class StaffController extends Controller
     {
         $user = $this->staff->find($id);
         $data = $request->all();
-        if (isset($data['email'])) {
-            unset($data['email']);
-        }
+//        if (isset($data['email'])) {
+//            unset($data['email']);
+//        }
         $data['password'] = bcrypt($data['password']);
-        $data['avatar']=updateAvatar($request,'upload/avatar',$user->avatar);
-        $user = $this->staff->update($id,$data);
+        $data['avatar'] = updateAvatar($request, 'upload/avatar', $user->avatar);
+        $user = $this->staff->update($id, $data);
 
         return redirect('admin/staffs')->with('notify', "modify $user->username successful!");
     }

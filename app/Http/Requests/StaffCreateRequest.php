@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StaffCreateRequest extends FormRequest
 {
-    protected $redirect="admin/staffs";
+    protected $redirect="admin/staffs/create";
     /**
      * Determine if the user is authorized to make this request.
      *

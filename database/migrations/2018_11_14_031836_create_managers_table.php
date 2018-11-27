@@ -13,13 +13,11 @@ class CreateManagersTable extends Migration
      */
     public function up()
     {
-
         Schema::create('managers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('username');
             $table->string('email')->unique();
             $table->string('password');
-            $table->rememberToken();
             $table->timestamps();
         });
     }

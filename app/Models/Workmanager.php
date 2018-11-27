@@ -19,6 +19,6 @@ class Workmanager extends Model
     ];
 
     public function staff() {
-        return $this->belongsTo('App\Staff', 'staff_id');
+        return $this->belongsTo('App\Models\Staff', 'staff_id');
     }
 }

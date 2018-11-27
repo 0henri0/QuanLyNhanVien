@@ -2,15 +2,20 @@
 
 namespace App\Service;
 
-use App\Models\Timesheet;
+use App\Models\Timesheet;;
 use App\Service\Interfaces\TimesheetInterface;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class TimesheetService implements TimesheetInterface
 {
 
     public function getAll()
     {
-        return Timesheet::with('task')->get();
+        $timesheet = Auth::user()->load('timesheet');
+        $mouth = Carbon::now()->startOfMonth()->format('Y-m-d');
+
+        return $timesheet->timesheet->where('date', '>=', $mouth)->sortByDesc('date');
     }
 
     /**
@@ -32,7 +37,12 @@ class TimesheetService implements TimesheetInterface
      */
     public function create(array $attributes)
     {
+        $check = Carbon::parse($attributes['date'])->format('d-m-Y') > Carbon::now()->format('d-m-Y');
+        dd($check);
+        if (Timesheet::where('staff_id', Auth::user()->id)->where('date', $attributes['date'])->first() || !$check) {
 
+            return false;
+        }
         return Timesheet::create($attributes);
     }
 
@@ -45,7 +55,9 @@ class TimesheetService implements TimesheetInterface
     public function update($id, array $attributes)
     {
         $result = $this->find($id);
-        if ($result) {
+        $check2 = Carbon::parse($attributes['date'])->format('m-Y') == Carbon::now()->format('m-Y');
+        $check = Timesheet::where('staff_id', Auth::id())->where('date', $attributes['date'])->first();
+        if ($result->date == $attributes['date'] || !$check||!$check2) {
             $result->update($attributes);
             return $result;
         }

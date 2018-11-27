@@ -26,7 +26,7 @@ class TaskTimesheet extends Migration
     public function down()
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->dropForeign('tasks_timesheetId_foreign');
+            $table->dropForeign('tasks_timesheet_id_foreign');
         });
 
     }

@@ -6,17 +6,44 @@
  */
 
 require('./bootstrap');
+//
 
-window.Vue = require('vue');
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+require('admin-lte/bower_components/datatables.net/js/jquery.dataTables.min');
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+require('admin-lte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min');
 
-const app = new Vue({
-    el: '#app'
-});
+require('admin-lte/bower_components/bootstrap/dist/js/bootstrap.min');
+
+require('admin-lte/bower_components/jquery-slimscroll/jquery.slimscroll.min');
+
+require('admin-lte/bower_components/fastclick/lib/fastclick');
+
+require('admin-lte/dist/js/adminlte.min');
+
+require('admin-lte/dist/js/demo');
+
+require('admin-lte/bower_components/fullcalendar/dist/fullcalendar.min');
+
+require('admin-lte/bower_components/jquery-ui/jquery-ui.min');
+
+require('admin-lte/bower_components/moment/moment');
+
+require('admin-lte/bower_components/ckeditor/ckeditor');
+
+
+
+// //
+// window.Vue = require('vue');
+//
+// /**
+//  * Next, we will create a fresh Vue application instance and attach it to
+//  * the page. Then, you may begin adding components to this application
+//  * or customize the JavaScript scaffolding to fit your unique needs.
+//  */
+//
+// Vue.component('example-component', require('./components/ExampleComponent.vue'));
+//
+// const app = new Vue({
+//     el: '#app'
+// });

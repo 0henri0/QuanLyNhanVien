@@ -24,9 +24,8 @@ class TaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'timesheet_id' => 'required',
             'content' => 'required',
-            'useTime' => 'required',
+            'useTime' => 'required|numeric',
         ];
     }
 }

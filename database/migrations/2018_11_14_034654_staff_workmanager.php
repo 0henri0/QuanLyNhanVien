@@ -26,7 +26,7 @@ class StaffWorkmanager extends Migration
     public function down()
     {
         Schema::table('workmanagers', function (Blueprint $table) {
-            $table->dropForeign('workmanagers_staffId_foreign');
+            $table->dropForeign('staff_id');
         });
 
     }

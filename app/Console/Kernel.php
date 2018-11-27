@@ -4,7 +4,6 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use App\Models\Systemmanager;
 
 class Kernel extends ConsoleKernel
 {
@@ -26,8 +25,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('mail:start')->dailyAt(Systemmanager::first()->end_timesheet);
-        $schedule->command('mail:end')->dailyAt(Systemmanager::first()->end_timesheet);
+        $mailService = app()->make(\App\Service\Interfaces\MailInterface::class);
+        $schedule->command('mail:start')->dailyAt($mailService->getStartTime());
+        $schedule->command('mail:end')->dailyAt($mailService->getEndTime());
     }
 
     /**

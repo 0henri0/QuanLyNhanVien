@@ -26,7 +26,7 @@ class StaffTimesheet extends Migration
     public function down()
     {
         Schema::table('timesheets', function (Blueprint $table) {
-            $table->dropForeign('timesheets_staffId_foreign');
+            $table->dropForeign('timesheets_staff_id_foreign');
         });
 
     }

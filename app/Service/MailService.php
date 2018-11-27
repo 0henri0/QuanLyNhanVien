@@ -22,6 +22,26 @@ class MailService implements MailInterface
         }
     }
 
+    public function getStartTime()
+    {
+        try {
+
+            return \App\Models\Systemmanager::first()->start_timesheet;
+        } catch (\Exception $e) {
+            return '17:00';
+        }
+    }
+
+    public function getEndTime()
+    {
+        try {
+
+            return \App\Models\Systemmanager::first()->end_timesheet;
+        } catch (\Exception $e) {
+            return '19:00';
+        }
+    }
+
     public function emailEnd()
     {
         $user = Staff::with('timesheet')->get();
