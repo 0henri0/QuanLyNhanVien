@@ -22,16 +22,13 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($timesheet)
+    public function index($id)
     {
-        $task = $this->task->getAll($timesheet);
-        if (count($task)) {
+        $task = $this->task->getAll($id);
+        $timesheet = $id;
 
-            return view('staff.task.list', compact('task'));
-        } else {
+        return view('staff.task.list', compact('task','timesheet'));
 
-            return redirect('leader')->with('notify', "chưa có task");
-        }
 
     }
 
@@ -41,13 +38,13 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TaskRequest $request, $timesheetId)
+    public function store(TaskRequest $request, $id)
     {
         $data = $request->all();
-        $data['timesheet_id'] = $timesheetId;
+        $data['timesheet_id'] = $id;
         $this->task->create($data);
 
-        return redirect("timesheets/$timesheetId/tasks")->with('notify', "create task successful!");
+        return redirect("timesheets/$id/tasks")->with('notify', "create task successful!");
     }
 
     /**

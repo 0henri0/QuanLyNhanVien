@@ -8,9 +8,11 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('timesheets', 'Staff\TimesheetController')->except('show');
 
-    Route::get('timesheets/{timesheetId}/tasks', 'Staff\TaskController@index');
-    Route::post('timesheets/{timesheetId}/tasks', 'Staff\TaskController@store');
+    Route::get('timesheets/{id}/tasks', 'Staff\TaskController@index')->middleware('checkLeader');
+    Route::post('timesheets/{id}/tasks', 'Staff\TaskController@store')->middleware('checkLeader','checkOriginStaff');
     Route::post('tasks/{taskId}', 'Staff\TaskController@update');
+    Route::get('profile','Staff\ProfileController@show');
+    Route::post('profile','Staff\ProfileController@update')->name('profile');
 });
 
 
@@ -34,6 +36,8 @@ Route::group(['prefix' => 'admin'], function () {
 //done
 Route::get('login', 'Staff\LoginStaffController@showLoginForm');
 Route::post('login', 'Staff\LoginStaffController@login')->name('login');
-Route::post('logout', 'Staff\LoginStaffController@logout')->name('logout');
+Route::get('logout', 'Staff\LoginStaffController@logout')->name('logout');
 
-
+Route::get('/',function (){
+   return redirect('timesheets');
+});

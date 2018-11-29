@@ -39,7 +39,7 @@ class LeaderController extends Controller
     public function update($id)
     {
         $data['approve'] = 1;
-        $this->timesheet->update($id, $data);
+        $this->timesheet->leaderUpdate($id, $data);
 
         return redirect('leader')->with('notify', "accepted");
     }
