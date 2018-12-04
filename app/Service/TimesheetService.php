@@ -2,7 +2,10 @@
 
 namespace App\Service;
 
-use App\Models\Timesheet;;
+use App\Models\Timesheet;
+
+;
+
 use App\Service\Interfaces\TimesheetInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -12,10 +15,9 @@ class TimesheetService implements TimesheetInterface
 
     public function getAll()
     {
-        $timesheet = Auth::user()->load('timesheet');
-        $mouth = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $timesheet = Auth::user()->load('timesheet')->timesheet();
 
-        return $timesheet->timesheet->where('date', '>=', $mouth)->sortByDesc('date');
+        return $timesheet->whereYear('date', Carbon::now()->format('Y'))->whereMonth('date', Carbon::now()->format('m'))->get()->sortByDesc('date');
     }
 
     /**
@@ -37,8 +39,7 @@ class TimesheetService implements TimesheetInterface
      */
     public function create(array $attributes)
     {
-        $check = Carbon::parse($attributes['date'])->format('d-m-Y') > Carbon::now()->format('d-m-Y');
-        dd($check);
+        $check = Carbon::parse($attributes['date'])->format('d-m-Y')<= Carbon::now()->format('d-m-Y');
         if (Timesheet::where('staff_id', Auth::user()->id)->where('date', $attributes['date'])->first() || !$check) {
 
             return false;
@@ -57,12 +58,27 @@ class TimesheetService implements TimesheetInterface
         $result = $this->find($id);
         $check2 = Carbon::parse($attributes['date'])->format('m-Y') == Carbon::now()->format('m-Y');
         $check = Timesheet::where('staff_id', Auth::id())->where('date', $attributes['date'])->first();
-        if ($result->date == $attributes['date'] || !$check||!$check2) {
+        if (($result->date == $attributes['date'] || !$check) && $check2) {
             $result->update($attributes);
             return $result;
         }
 
         return false;
+    }
+
+    /**
+     * Update
+     * @param $id
+     * @param array $attributes
+     * @return bool|mixed
+     */
+    public function leaderUpdate($id, array $attributes)
+    {
+        $result = $this->find($id);
+        $result->update($attributes);
+
+        return $result;
+
     }
 
     /**

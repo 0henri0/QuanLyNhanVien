@@ -41,6 +41,10 @@ class LoginStaffController extends Controller
 
     public function showLoginForm()
     {
+        $collection = collect(['name' => 'taylor', 'framework' => 'laravel']);
+        //dd($collection);
+        //$value = $collection->get('name');
+        dd(app()->make(\App\Models\Staff::class)::select('username')->get());
         return view('staff.auth.login');
     }
 
@@ -75,5 +79,14 @@ class LoginStaffController extends Controller
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
+    }
+
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return redirect('/login');
     }
 }
