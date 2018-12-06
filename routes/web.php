@@ -41,3 +41,9 @@ Route::get('logout', 'Staff\LoginStaffController@logout')->name('logout');
 Route::get('/',function (){
    return redirect('timesheets');
 });
+
+
+Route::get('/redis',function (){
+    $redis = Redis::connection();
+    dd($redis->get('name'));
+});
