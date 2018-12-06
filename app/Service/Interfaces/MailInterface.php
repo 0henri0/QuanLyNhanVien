@@ -15,10 +15,10 @@ interface MailInterface
     /**
      * send mail timeshhet for leader
      */
-    public function emailSendLeader();
+    public function emailSendLeader($mail);
     /**
      * send mail thank
      */
-    public function emailThank();
+    public function emailThank($mail);
 
 }
