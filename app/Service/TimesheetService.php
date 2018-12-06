@@ -40,6 +40,7 @@ class TimesheetService implements TimesheetInterface
     public function create(array $attributes)
     {
         $check = Carbon::parse($attributes['date'])->format('d-m-Y')<= Carbon::now()->format('d-m-Y');
+
         if (Timesheet::where('staff_id', Auth::user()->id)->where('date', $attributes['date'])->first() || !$check) {
 
             return false;

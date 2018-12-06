@@ -54,17 +54,17 @@ class MailService implements MailInterface
         }
     }
 
-    public function emailSendLeader()
+    public function emailSendLeader($mail)
     {
-        Mail::send('mails.emailSendLeader', array(), function ($message) {
-            $message->to('thainv1612@gmail.com', 'Visitor')->subject('Visitor Feedback!');
+        Mail::send('mails.emailSendLeader', array(), function ($message) use ($mail) {
+            $message->to($mail, 'Visitor')->subject('Visitor Feedback!');
         });
     }
 
-    public function emailThank()
+    public function emailThank($mail)
     {
-        Mail::send('mails.emailThank', array(), function ($message) {
-            $message->to('thainv1612@gmail.com', 'Visitor')->subject('Visitor Feedback!');
+        Mail::send('mails.emailThank', array(), function ($message) use ($mail){
+            $message->to($mail, 'test')->subject('test!');
         });
     }
 }
