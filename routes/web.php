@@ -45,5 +45,6 @@ Route::get('/',function (){
 
 Route::get('/redis',function (){
     $redis = Redis::connection();
-    dd($redis->get('name'));
+    $redis->set('name','Thái Đẹp Trai');
+    dd($redis->get('thai'));
 });

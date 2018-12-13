@@ -13,28 +13,43 @@
                     <label for="inputEmail3" class="col-sm-2 control-label">Username</label>
 
                     <div class="col-sm-10">
-                        <input type="text" value="{{ old('username') }}" name="username" class="form-control" id="inputEmail3" placeholder="Username">
+                        <input type="text" value="{{ old('username') }}" name="username" class="form-control"
+                               id="inputEmail3" placeholder="Username">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputEmail3"  class="col-sm-2 control-label">Email</label>
+                    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
 
                     <div class="col-sm-10">
-                        <input type="email" value="{{ old('email') }}" name="email" class="form-control" id="inputEmail3" placeholder="Email">
+                        <input type="email" value="{{ old('email') }}" name="email" class="form-control"
+                               id="inputEmail3" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Leader</label>
+                    <div class="col-sm-10">
+                        <select  class="form-control"  name="leader_id">
+                            <option selected value="" >Choose...</option>
+                            @foreach($staff as $staff)
+                                <option value="{!! $staff->id !!}">{!! $staff->username !!}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
 
                     <div class="col-sm-10">
-                        <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Password">
+                        <input type="password" name="password" class="form-control" id="inputPassword3"
+                               placeholder="Password">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label">Confirm Password</label>
 
                     <div class="col-sm-10">
-                        <input type="password" name="passwordAgain" class="form-control" id="inputPassword3" placeholder="Confirm Password">
+                        <input type="password" name="passwordAgain" class="form-control" id="inputPassword3"
+                               placeholder="Confirm Password">
                     </div>
                 </div>
             </div>
