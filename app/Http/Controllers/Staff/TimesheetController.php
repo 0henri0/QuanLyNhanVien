@@ -3,24 +3,21 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Requests\TimesheetCreateRequest;
-use App\Service\Interfaces\WorkManagerInterface;
-use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use App\Service\Interfaces\TimesheetInterface as timesheet;
 use App\Jobs\SendThankEmail;
 use App\Jobs\SendLeaderMail;
-use App\Service\Interfaces\MailInterface as mail;
+use App\Service\WorkManagerService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TimesheetController extends Controller
 {
-    protected $timesheet, $mail, $work;
+    protected $timesheet, $work;
 
-    public function __construct(timesheet $timesheet, mail $mail, WorkManagerInterface $work)
+    public function __construct(timesheet $timesheet, WorkManagerService $work)
     {
         $this->timesheet = $timesheet;
-        $this->mail = $mail;
         $this->work = $work;
     }
 
@@ -54,6 +51,7 @@ class TimesheetController extends Controller
      */
     public function store(TimesheetCreateRequest $request)
     {
+
         $data = $request->all();
         $data['staff_id'] = Auth::user()->id;
         if (!$this->timesheet->create($data)) {
@@ -61,8 +59,10 @@ class TimesheetController extends Controller
             return redirect('timesheets')->with('notify', "timesheet exist or timesheet not in mouth now!");
         }
         $this->work->updateRegister();
-        dispatch(new SendThankEmail($this->mail));
-        dispatch(new SendLeaderMail($this->mail));
+        dispatch(new SendThankEmail(Auth::user()->email));
+        if (Auth::user()->leader) {
+            dispatch(new SendLeaderMail(Auth::user()->email));
+        }
 
         return redirect('timesheets')->with('notify', "create timesheet successful!");
     }
@@ -93,7 +93,7 @@ class TimesheetController extends Controller
         $data = $request->all();
         $data['approve'] = 0;
         if ($this->timesheet->update($id, $data)) {
-            dispatch(new SendLeaderMail($this->mail));
+            dispatch(new SendLeaderMail());
 
             return redirect('timesheets')->with('notify', "modify timesheet successful!");
         } else {

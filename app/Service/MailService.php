@@ -4,7 +4,6 @@ namespace App\Service;
 
 use App\Service\Interfaces\MailInterface;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Staff;
 

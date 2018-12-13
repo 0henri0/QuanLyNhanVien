@@ -27,7 +27,7 @@ class StaffController extends Controller
     {
         $staff = $this->staff->getAll();
 
-        return view('admin.staff.list', ['staff' => $staff]);
+        return view('admin.staff.list', compact('staff'));
     }
 
     /**
@@ -37,7 +37,9 @@ class StaffController extends Controller
      */
     public function create()
     {
-        return view('admin.staff.create');
+        $staff = $this->staff->getAll();
+
+        return view('admin.staff.create',compact('staff'));
     }
 
     /**
@@ -48,9 +50,10 @@ class StaffController extends Controller
      */
     public function store(StaffCreateRequest $request)
     {
+
         $data = $request->all();
         $data['password'] = bcrypt($data['password']);
-        $data['avatar'] = createAvatar($request, 'upload/avatar');
+        $data['avatar'] = 'upload/avatar/1.jpg';
         $user = $this->staff->create($data);
 
         return redirect('admin/staffs')->with('notify', "create $user->username successful!");
@@ -76,12 +79,13 @@ class StaffController extends Controller
     public function edit($id)
     {
         $staff = $this->staff->find($id);
+        $staff1 = $this->staff->getAll();
 
         if (!$staff) {
             return redirect()->back()->withErrors(['staff do not exist']);
         }
 
-        return view('admin.staff.edit', compact('staff'));
+        return view('admin.staff.edit', compact('staff','staff1'));
     }
 
     /**
@@ -95,11 +99,7 @@ class StaffController extends Controller
     {
         $user = $this->staff->find($id);
         $data = $request->all();
-//        if (isset($data['email'])) {
-//            unset($data['email']);
-//        }
         $data['password'] = bcrypt($data['password']);
-        $data['avatar'] = updateAvatar($request, 'upload/avatar', $user->avatar);
         $user = $this->staff->update($id, $data);
 
         return redirect('admin/staffs')->with('notify', "modify $user->username successful!");
