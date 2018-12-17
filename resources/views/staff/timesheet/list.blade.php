@@ -11,7 +11,7 @@
                 <table class="table table-bordered">
                     <tr>
 
-                        <th style="width: 50px">Tháng <br>11/2018</th>
+                        <th style="width: 120px">Ngày </th>
                         <th style="text-align: center;padding-top: 20px">Khó Khăn</th>
                         <th style="text-align: center;padding-top: 20px">Công Việc Ngày Tiếp Theo</th>
                         <th style="width: 90px;padding-top: 20px">Trạng Thái</th>
@@ -20,7 +20,7 @@
                     </tr>
                     @foreach($timesheet as $timesheet)
                         <tr>
-                            <td>{{\Carbon\Carbon::parse($timesheet->date)->format('d')}}</td>
+                            <td>{{\Carbon\Carbon::parse($timesheet->date)->format('d-m-Y')}}</td>
                             <td>{!! $timesheet->difficulty !!}</td>
                             <td>
                                 {!! $timesheet->work_next_day !!}

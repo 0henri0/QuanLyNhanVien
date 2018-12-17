@@ -6,7 +6,6 @@
             User Profile
         </h1>
     </section>
-
     <!-- Main content -->
     <section class="content">
 
@@ -28,7 +27,11 @@
                                 <b>Số Staff Quản Lý</b> <a class="pull-right">{!! count(Auth::user()->staff) !!}</a>
                             </li>
                             <li class="list-group-item">
-                                <b>Người Quản Lý</b> <a class="pull-right">{!! Auth::user()->leader->username !!}</a>
+                                <b>Người Quản Lý</b>
+                                @if(Auth::user()->leader)
+                                    <a class="pull-right">{!! Auth::user()->leader->username !!}</a>
+                                @else Không Có
+                                @endif
                             </li>
                             <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal"><b>Đổi
                                     Password</b></a>
@@ -49,7 +52,8 @@
                                           action="{!! route('profile') !!}">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <div class="form-group">
-                                            <label for="inputPassword3" class="col-sm-2 control-label">Password Cũ</label>
+                                            <label for="inputPassword3" class="col-sm-2 control-label">Password
+                                                Cũ</label>
 
                                             <div class="col-sm-10">
                                                 <input type="password" name="password-old" class="form-control"
@@ -126,7 +130,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputEmail"  class="col-sm-2 control-label">Email</label>
+                                    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
 
                                     <div class="col-sm-10">
                                         <input disabled name="email" type="email" class="form-control"

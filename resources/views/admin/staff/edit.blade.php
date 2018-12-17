@@ -25,6 +25,17 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Leader</label>
+                    <div class="col-sm-10">
+                        <select  class="form-control"  name="leader_id">
+                            <option  value="" >Choose...</option>
+                            @foreach($staff1 as $staff)
+                                <option value="{!! $staff->id !!}">{!! $staff->username !!}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
 
                     <div class="col-sm-10">

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Controller;
+use App\Models\Staff;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Service\Interfaces\StaffInterface as staffs;
 use App\Http\Requests\StaffCreateRequest;
 use App\Http\Requests\StaffUpdate as StaffUpdateRequest;
@@ -15,6 +16,7 @@ class StaffController extends Controller
 
     public function __construct(staffs $staff)
     {
+        parent::__construct();
         $this->staff = $staff;
     }
 
@@ -27,7 +29,7 @@ class StaffController extends Controller
     {
         $staff = $this->staff->getAll();
 
-        return view('admin.staff.list', ['staff' => $staff]);
+        return view('admin.staff.list', compact('staff'));
     }
 
     /**
@@ -37,7 +39,9 @@ class StaffController extends Controller
      */
     public function create()
     {
-        return view('admin.staff.create');
+        $staff = $this->staff->getAll();
+
+        return view('admin.staff.create',compact('staff'));
     }
 
     /**
@@ -48,23 +52,13 @@ class StaffController extends Controller
      */
     public function store(StaffCreateRequest $request)
     {
+
         $data = $request->all();
         $data['password'] = bcrypt($data['password']);
-        $data['avatar'] = createAvatar($request, 'upload/avatar');
+        $data['avatar'] = 'upload/avatar/1.jpg';
         $user = $this->staff->create($data);
 
         return redirect('admin/staffs')->with('notify', "create $user->username successful!");
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-
     }
 
     /**
@@ -73,15 +67,15 @@ class StaffController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Staff $staff)
     {
-        $staff = $this->staff->find($id);
-
+        $staff = $this->staff->find($staff);
+        $staff1 = $this->staff->getAll();
         if (!$staff) {
             return redirect()->back()->withErrors(['staff do not exist']);
         }
 
-        return view('admin.staff.edit', compact('staff'));
+        return view('admin.staff.edit', compact('staff','staff1'));
     }
 
     /**
@@ -91,16 +85,12 @@ class StaffController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StaffUpdateRequest $request, $id)
+    public function update(StaffUpdateRequest $request, Staff $staff)
     {
-        $user = $this->staff->find($id);
+        $user = $this->staff->find($staff);
         $data = $request->all();
-//        if (isset($data['email'])) {
-//            unset($data['email']);
-//        }
         $data['password'] = bcrypt($data['password']);
-        $data['avatar'] = updateAvatar($request, 'upload/avatar', $user->avatar);
-        $user = $this->staff->update($id, $data);
+        $user = $this->staff->update($staff, $data);
 
         return redirect('admin/staffs')->with('notify', "modify $user->username successful!");
     }
@@ -111,9 +101,9 @@ class StaffController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Staff $staff)
     {
-        $this->staff->delete($id);
+        $this->staff->delete($staff);
 
         return redirect('admin/staffs')->with('notify', "delete successful!");
     }

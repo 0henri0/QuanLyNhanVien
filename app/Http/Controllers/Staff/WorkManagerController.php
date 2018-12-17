@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Staff\Controller;
 use App\Service\Interfaces\WorkManagerInterface;
 
 class WorkManagerController extends Controller
@@ -11,6 +11,7 @@ class WorkManagerController extends Controller
 
     public function __construct(WorkManagerInterface $work)
     {
+        parent::__construct();
         $this->workManager = $work;
     }
 
@@ -18,6 +19,6 @@ class WorkManagerController extends Controller
     {
         $workManager = $this->workManager->getAll();
 
-        return view('staff.workmanager.index',compact('workManager'));
+        return view('staff.workmanager.index', compact('workManager'));
     }
 }

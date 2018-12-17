@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Staff;
 
-
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Staff\Controller;
 use App\Service\Interfaces\StaffInterface as staffs;
 use App\Service\Interfaces\TimesheetInterface as timesheet;
 
@@ -13,6 +12,7 @@ class LeaderController extends Controller
 
     public function __construct(timesheet $timesheet, staffs $staff)
     {
+        parent::__construct();
         $this->staff = $staff;
         $this->timesheet = $timesheet;
     }

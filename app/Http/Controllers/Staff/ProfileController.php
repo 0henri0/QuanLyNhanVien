@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Staff\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Service\Interfaces\StaffInterface;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +14,7 @@ class ProfileController extends Controller
 
     public function __construct(StaffInterface $staff)
     {
+        parent::__construct();
         $this->staff = $staff;
     }
 

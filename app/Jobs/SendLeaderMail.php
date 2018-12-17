@@ -7,21 +7,22 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use App\Service\Interfaces\MailInterface as mail;
 
 class SendLeaderMail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $mail;
+    protected $mail, $url;
+
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(mail $mail)
+    public function __construct($url)
     {
-        $this->mail= $mail;
+        $this->url = $url;
+        $this->mail = app()->make(\App\Service\Interfaces\MailInterface::class);
     }
 
     /**
@@ -31,6 +32,6 @@ class SendLeaderMail implements ShouldQueue
      */
     public function handle()
     {
-        $this->mail->emailSendLeader();
+        $this->mail->emailSendLeader($this->url);
     }
 }
