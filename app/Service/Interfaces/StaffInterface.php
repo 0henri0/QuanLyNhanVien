@@ -2,6 +2,9 @@
 
 namespace App\Service\Interfaces;
 
+
+use App\Models\Staff;
+
 interface StaffInterface
 {
     /**
@@ -15,7 +18,7 @@ interface StaffInterface
      * @param $id
      * @return mixed
      */
-    public function find($id);
+    public function find(Staff $staff);
 
     /**
      * Create
@@ -30,12 +33,12 @@ interface StaffInterface
      * @param array $attributes
      * @return mixed
      */
-    public function update($id, array $attributes);
+    public function update(Staff $staff, array $attributes);
 
     /**
      * Delete
      * @param $id
      * @return mixed
      */
-    public function delete($id);
+    public function delete(Staff $staff);
 }

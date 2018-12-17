@@ -2,6 +2,8 @@
 
 namespace App\Service\Interfaces;
 
+use App\Models\Timesheet;
+
 interface TimesheetInterface
 {
     /**
@@ -15,7 +17,7 @@ interface TimesheetInterface
      * @param $id
      * @return mixed
      */
-    public function find($id);
+    public function find($timesheet);
 
     /**
      * Create
@@ -30,12 +32,12 @@ interface TimesheetInterface
      * @param array $attributes
      * @return mixed
      */
-    public function update($id, array $attributes);
+    public function update(Timesheet $timesheet, array $attributes);
 
     /**
      * Delete
      * @param $id
      * @return mixed
      */
-    public function delete($id);
+    public function delete(Timesheet $timesheet);
 }

@@ -10,20 +10,19 @@ class TaskService implements TaskInterface
 {
 
 
-    public function getAll($timeshetId)
+    public function getAll(Timesheet $timesheet)
     {
-        return Timesheet::find($timeshetId)->load('task')->task;
+        return $timesheet->task;
     }
     /**
      * Get one
      * @param $id
      * @return mixed
      */
-    public function find($id)
+    public function find(Task $task)
     {
-        $result = Task::with('timesheet')->find($id);
 
-        return $result;
+        return $task;
     }
 
     /**
@@ -39,16 +38,15 @@ class TaskService implements TaskInterface
 
     /**
      * Update
-     * @param $id
+     * @param $task
      * @param array $attributes
      * @return bool|mixed
      */
-    public function update($id, array $attributes)
+    public function update(Task $task, array $attributes)
     {
-        $result = $this->find($id);
-        if ($result) {
-            $result->update($attributes);
-            return $result;
+        if ($task) {
+            $task->update($attributes);
+            return $task;
         }
 
         return false;
@@ -60,11 +58,10 @@ class TaskService implements TaskInterface
      * @param $id
      * @return bool
      */
-    public function delete($id)
+    public function delete(Task  $task)
     {
-        $result = $this->find($id);
-        if ($result) {
-            $result->delete();
+        if ($task) {
+            $task->delete();
 
             return true;
         }

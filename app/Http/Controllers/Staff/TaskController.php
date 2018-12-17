@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Requests\TaskRequest;
+use App\Models\Task;
+use App\Models\Timesheet;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Staff\Controller;
 use App\Service\Interfaces\TaskInterface as taskService;
 
 class TaskController extends Controller
@@ -14,6 +16,7 @@ class TaskController extends Controller
 
     public function __construct(taskService $task)
     {
+        parent::__construct();
         $this->task = $task;
     }
 
@@ -22,10 +25,10 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index(Timesheet $timesheet)
     {
-        $task = $this->task->getAll($id);
-        $timesheet = $id;
+        $task = $this->task->getAll($timesheet);
+        $timesheet = $timesheet->id;
 
         return view('staff.task.list', compact('task','timesheet'));
 
@@ -78,10 +81,10 @@ class TaskController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TaskRequest $request, $taskId)
+    public function update(TaskRequest $request, Task $task)
     {
         $data = $request->all();
-        $this->task->update($taskId, $data);
+        $this->task->update($task, $data);
 
         return back()->with('notify', "modify task successful!");
     }
@@ -92,10 +95,10 @@ class TaskController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Task $task)
     {
-        $this->task->delete($id);
+        $this->task->delete($task);
 
-        return redirect('tasks')->with('notify', "delete successful!");
+        return  back()->with('notify', "delete successful!");
     }
 }

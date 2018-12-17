@@ -3,9 +3,6 @@
 namespace App\Service;
 
 use App\Models\Timesheet;
-
-;
-
 use App\Service\Interfaces\TimesheetInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -25,11 +22,9 @@ class TimesheetService implements TimesheetInterface
      * @param $id
      * @return mixed
      */
-    public function find($id)
+    public function find($timesheet)
     {
-        $result = Timesheet::with('task')->find($id);
-
-        return $result;
+        return Timesheet::first($timesheet);
     }
 
     /**
@@ -54,9 +49,9 @@ class TimesheetService implements TimesheetInterface
      * @param array $attributes
      * @return bool|mixed
      */
-    public function update($id, array $attributes)
+    public function update(Timesheet $timesheet, array $attributes)
     {
-        $result = $this->find($id);
+        $result = $timesheet;
         $check2 = Carbon::parse($attributes['date'])->format('m-Y') == Carbon::now()->format('m-Y');
         $check = Timesheet::where('staff_id', Auth::id())->where('date', $attributes['date'])->first();
         if (($result->date == $attributes['date'] || !$check) && $check2) {
@@ -73,13 +68,9 @@ class TimesheetService implements TimesheetInterface
      * @param array $attributes
      * @return bool|mixed
      */
-    public function leaderUpdate($id, array $attributes)
+    public function leaderUpdate(Timesheet $timesheet, array $attributes)
     {
-        $result = $this->find($id);
-        $result->update($attributes);
-
-        return $result;
-
+        return $timesheet->update($attributes);
     }
 
     /**
@@ -88,11 +79,10 @@ class TimesheetService implements TimesheetInterface
      * @param $id
      * @return bool
      */
-    public function delete($id)
+    public function delete(Timesheet $timesheet)
     {
-        $result = $this->find($id);
-        if ($result) {
-            $result->delete();
+        if ($timesheet) {
+            $timesheet->delete();
 
             return true;
         }

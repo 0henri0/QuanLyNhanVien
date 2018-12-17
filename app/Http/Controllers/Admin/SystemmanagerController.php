@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\Controller;
 use App\Service\Interfaces\SystemInterface as system;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,6 +13,7 @@ class SystemmanagerController extends Controller
 
     public function __construct(system $system)
     {
+        parent::__construct();
         $this->system = $system;
     }
 
@@ -27,18 +28,6 @@ class SystemmanagerController extends Controller
 
         return view('admin.system.system', ['system' => $system]);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *

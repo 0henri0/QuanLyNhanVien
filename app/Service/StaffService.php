@@ -24,11 +24,9 @@ class StaffService implements StaffInterface
      * @param $id
      * @return mixed
      */
-    public function find($id)
+    public function find(Staff $staff)
     {
-        $result = Staff::with('leader', 'staff')->find($id);
-
-        return $result;
+        return $staff;
     }
 
     /**
@@ -48,12 +46,11 @@ class StaffService implements StaffInterface
      * @param array $attributes
      * @return bool|mixed
      */
-    public function update($id, array $attributes)
+    public function update(Staff $staff, array $attributes)
     {
-        $result = $this->find($id);
-        if ($result) {
-            $result->update($attributes);
-            return $result;
+        if ($staff) {
+            $staff->update($attributes);
+            return $staff;
         }
 
         return false;
@@ -65,11 +62,10 @@ class StaffService implements StaffInterface
      * @param $id
      * @return bool
      */
-    public function delete($id)
+    public function delete(Staff $staff)
     {
-        $result = $this->find($id);
-        if ($result) {
-            $result->delete();
+        if ($staff) {
+            $staff->delete();
 
             return true;
         }
@@ -79,9 +75,9 @@ class StaffService implements StaffInterface
 
     public function leaderManager()
     {
-        $staff = Staff::where('leader_id',Auth::id())->pluck('id')->toArray();
+        $staff = Staff::where('leader_id', Auth::id())->pluck('id')->toArray();
 
-        return( Timesheet::whereIn('staff_id',$staff)->whereYear('date', Carbon::now()->format('Y'))->whereMonth('date', Carbon::now()->format('m'))->with('staff')->get()->sortByDesc('date'));
+        return (Timesheet::whereIn('staff_id', $staff)->whereYear('date', Carbon::now()->format('Y'))->whereMonth('date', Carbon::now()->format('m'))->with('staff')->get()->sortByDesc('date'));
 //        $user= Auth::user()->load('staff.timesheet')->staff;
 //
 //        dd($user[0]->timesheet);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Timesheet;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,8 +17,7 @@ class CheckLeader
      */
     public function handle($request, Closure $next)
     {
-        $check = app()->make(\App\Service\Interfaces\TimesheetInterface::class)->find($request->route('id'));
-
+        $check = app()->make(\App\Service\Interfaces\TimesheetInterface::class)->find($request->route('$timesheet'));
         if (!$check||!$check->staff()->where('leader_id',Auth::user()->id)->exists()) {
 
             return redirect('/leader')->with('error', 'bạn không phải leader của timesheet này.');
