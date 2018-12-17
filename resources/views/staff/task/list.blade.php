@@ -28,7 +28,7 @@
                                 <td style="text-align: center"><a name="edit-task" href="#" value="{{$task->id}}"
                                                                   data-toggle="modal" data-target="#myModal2"> <span
                                                 class="fa fa-edit"></span></a></td>
-                                <td style="text-align: center"><a href="#" style="color: red"><span
+                                <td style="text-align: center"><a href="{{asset("tasks/delete/$task->id")}}" style="color: red"><span
                                                 class="fa fa-trash"></span></a></td>
                             </tr>
                         @endforeach

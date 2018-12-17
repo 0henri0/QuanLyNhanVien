@@ -1,29 +1,5 @@
 <?php
 
-Route::group(['middleware' => ['auth']], function () {
-    Route::post('staffs/{id}', 'Admin\StaffController@update');
-    Route::get('/statistics', 'Staff\WorkManagerController@index');
-    Route::get('leader', 'Staff\LeaderController@index');
-    Route::get('leader/{id}', 'Staff\LeaderController@update')->middleware('checkLeader');
-
-    Route::resource('timesheets', 'Staff\TimesheetController')->except('show');
-
-    Route::get('timesheets/{id}/tasks', 'Staff\TaskController@index')->middleware('checkLeader');
-    Route::post('timesheets/{id}/tasks', 'Staff\TaskController@store')->middleware('checkLeader','checkOriginStaff');
-    Route::post('tasks/{taskId}', 'Staff\TaskController@update');
-    Route::get('profile','Staff\ProfileController@show');
-    Route::post('profile','Staff\ProfileController@update')->name('profile');
-});
-
-
-//-----------------------------------------
-//done
-Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => ['checkAdmin']], function () {
-    Route::resource('staffs', 'Admin\StaffController');
-    Route::get('staffs/delete/{id}', 'Admin\StaffController@destroy');
-    Route::get('system', 'Admin\SystemmanagerController@index');
-    Route::post('system', 'Admin\SystemmanagerController@update');
-});
 //---------------------------------------------
 //done
 Route::group(['prefix' => 'admin'], function () {
@@ -42,9 +18,6 @@ Route::get('/',function (){
    return redirect('timesheets');
 });
 
-
-Route::get('/redis',function (){
-    $redis = Redis::connection();
-    $redis->set('name','Thái Đẹp Trai');
-    dd($redis->get('thai'));
+Route::get('/admin',function (){
+    return redirect('admin/staffs');
 });
